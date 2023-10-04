@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_genral_pages.cshtml";
+}
+<script src="~/Content/js/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {       
+        $("#btn").click(function () {   
+            var error = 0;
+            var data = new FormData();
+            $.each($("#form1").serializeArray(), function (index, element) {
+                data.append(element.name, element.value);
+                
+            })
+            data.append("picture", $("#picture").get(0).files[0]);
+            
+            //data.append("name", $("#name").val());
+            //data.append("email", $("#email").val());
+            //data.append("mobile", $("#mobile").val());
+            //data.append("password", $("#password").val());
+            //data.append("address", $("#address").val());
+            //data.append("pincode", $("#pincode").val());
+            //data.append("landmark", $("#landmark").val());
+            //data.append("picture", $("#picture").get(0).files[0]);
+           
+
+            $.ajax({
+                url: '/home/AddRegisteration',
+                type: 'post',
+                data: data,
+                datatype: 'json',
+                contentType: false,
+                processData: false,
+                success: function (res) {                   
+                    alert(res)
+                    document.getElementById("form1").reset();
+                },
+                error: function () {
+                    alert('error');
+                }
+
+            })
+        })
+    })
+</script>
+
+        
+<div class="container mt-5" style="border:10px;">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 style="margin-left:250px;">Register</h4>
+                </div>
+                <div class="card-body">
+                    <form id="form1" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile">Mobile:</label>
+                            <input type="text" name="mobile" maxlength="10" class="form-control" id="mobile" placeholder="Enter your mobile number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" name="password" class="form-control" id="password" placeholder="Enter your password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address:</label>
+                            <textarea class="form-control" name="address" id="address" rows="3" placeholder="Enter your address" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="pincode">Pincode:</label>
+                            <input type="text" name="pincode" class="form-control" id="pincode" placeholder="Enter your pincode" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="landmark">Landmark:</label>
+                            <input type="text" name="landmark" class="form-control" id="landmark" placeholder="Enter a landmark">
+                        </div>
+                        <div class="form-group my-3">
+                            <label for="picture">Picture:</label>
+                            <input type="file" name="picture" class="form-control" id="picture">
+                        </div>
+                        @*<button type="button" class="form-control  mx-lg-auto" id="btn">Register</button>*@
+                        <input type="button" value="Register" id="btn" class="form-control btn btn-success mx-lg-auto"/>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
